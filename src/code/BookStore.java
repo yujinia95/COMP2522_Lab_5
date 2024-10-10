@@ -2,6 +2,7 @@ package code;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.ListIterator;
 
 /**
  * This class models book store's information.
@@ -162,9 +163,24 @@ public class BookStore {
      * @param title title of book
      */
     public void printBookTitle(final String title) {
-
         final StringBuilder builder;
         builder = new StringBuilder();
+
+        if (novels != null)
+        {
+            for (final Novel novel: novels)
+            {
+                if (novel !=null && novel.getTitle() != null)
+                {
+                    if (novel.getTitle().toUpperCase().contains(title.toUpperCase()))
+                    {
+                        builder.append(novel.getTitle());
+                    }
+                }
+            }
+            System.out.println(builder);
+        }
+
 
     }
 
