@@ -176,7 +176,7 @@ public class BookStore {
                     }
                 }
             }
-            System.out.println(builder);
+            System.out.println(builder.append("\n"));
         }
 
 
@@ -247,11 +247,8 @@ public class BookStore {
 
             else
             {
-                System.out.println("No books published in decade " + decade);
+                System.out.println("No books published in decade " + decade + "\n");
             }
-
-            System.out.println(builder);
-
         }
 
     }

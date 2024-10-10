@@ -9,16 +9,17 @@ public class BookStoreTest
         BookStore bookStore;
         bookStore = new BookStore("BCIT library");
 
-        System.out.println("Test print titles in alpha order:\n");
+        System.out.println("---------- Test print titles in alpha order: ----------");
         bookStore.printTitlesInAlphaOrder();
 
-        System.out.println("Testing Print book title\n");
+        System.out.println("---------- Testing Print book title with 'Wide': ----------");
         bookStore.printBookTitle("Wide");
 
-        System.out.println("Testing Decade (Exists)\n");
+
+        System.out.println("---------- Testing Decade with '2000' (Exists): ----------");
         bookStore.printGroupByDecade(2000);
 
-        System.out.println("Testing Decade (Does not exist)\n");
+        System.out.println("---------- Testing Decade '1900' (Does not exist): ----------");
         bookStore.printGroupByDecade(1900);
     }
 }
