@@ -232,7 +232,7 @@ public class BookStore {
                 final int yearPublished;
                 yearPublished = novel.getYearPublished();
 
-                //Checks if yearPublished is valid and if it is within the decade entered (e.g. 2000 + 9 = 2009)
+                //Checks if yearPublished is valid and if it is within the decade entered (e.g. 2000 + 10 = 2010)
                 if (yearPublished > 0 && yearPublished >= decade && yearPublished < (decade + 10))
                 {
                     builder.append(novel.getTitle()).append(" (").append(yearPublished).append(")\n");
