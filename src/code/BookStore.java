@@ -222,6 +222,37 @@ public class BookStore {
 
         final StringBuilder builder;
         builder = new StringBuilder();
+        boolean hasBooksInDecade = false;
+
+
+        if (novels != null)
+        {
+            for (final Novel novel: novels)
+            {
+                final int yearPublished;
+                yearPublished = novel.getYearPublished();
+
+                //Checks if yearPublished is valid and if it is within the decade entered (e.g. 2000 + 9 = 2009)
+                if (yearPublished > 0 && yearPublished >= decade && yearPublished < (decade + 10))
+                {
+                    builder.append(novel.getTitle()).append(" (").append(yearPublished).append(")\n");
+                    hasBooksInDecade = true;
+                }
+            }
+
+            if (hasBooksInDecade)
+            {
+                System.out.println(builder);
+            }
+
+            else
+            {
+                System.out.println("No books published in decade " + decade);
+            }
+
+            System.out.println(builder);
+
+        }
 
     }
 
