@@ -1,8 +1,6 @@
 package code;
 
-import java.util.List;
-import java.util.ArrayList;
-import java.util.ListIterator;
+import java.util.*;
 
 /**
  * This class models book store's information.
@@ -192,6 +190,27 @@ public class BookStore {
 
         final StringBuilder builder;
         builder = new StringBuilder();
+
+        Set<String> sortedBookTitles;
+        sortedBookTitles = new TreeSet<String>();
+
+        if (novels != null)
+        {
+            for (final Novel novel : novels)
+            {
+                if (novel != null && novel.getTitle() != null)
+                {
+                 sortedBookTitles.add(novel.getTitle());
+                }
+            }
+
+            for (String bookTitle : sortedBookTitles)
+            {
+            builder.append(bookTitle).append("\n");
+            }
+
+            System.out.println(builder);
+        }
 
     }
 
