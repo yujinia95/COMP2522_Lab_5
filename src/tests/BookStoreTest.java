@@ -21,5 +21,8 @@ public class BookStoreTest
 
         System.out.println("---------- Testing Decade '1900' (Does not exist): ----------");
         bookStore.printGroupByDecade(1900);
+
+        System.out.println("---------- Finding the longest title: ----------");
+        bookStore.getLongest();
     }
 }

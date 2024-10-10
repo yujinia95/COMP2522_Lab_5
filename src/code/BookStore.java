@@ -259,8 +259,27 @@ public class BookStore {
      */
     public void getLongest(){
 
-        final StringBuilder builder;
-        builder = new StringBuilder();
+//        final StringBuilder builder;
+//        builder = new StringBuilder();
+
+        String longestTitle = ""; //Initialized to set length to 0
+
+        if (novels != null)
+        {
+            for (final Novel novel: novels)
+            {
+                if (novel != null && novel.getTitle() != null)
+                {
+                    if (novel.getTitle().length() > longestTitle.length())
+                    {
+                        longestTitle = novel.getTitle(); // Updates here
+                    }
+                }
+            }
+        }
+
+        System.out.println("The longest title is: " + longestTitle + "\n");
+
 
     }
 
