@@ -2,10 +2,12 @@ package tests;
 
 import code.BookStore;
 
+import java.io.FileNotFoundException;
 
 public class BookStoreTest
 {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException
+    {
         BookStore bookStore;
         bookStore = new BookStore("BCIT library");
 
@@ -24,5 +26,8 @@ public class BookStoreTest
 
         System.out.println("---------- Finding the longest title: ----------");
         bookStore.getLongest();
+
+        System.out.println("---------- Percentage of Books in between: ----------");
+        bookStore.whichPercentWrittenBetween(1935, 2000);
     }
 }

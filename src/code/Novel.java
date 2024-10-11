@@ -11,7 +11,7 @@ package code;
  * @author Brian Diep
  * @version 1.0
  */
-public class Novel {
+public class Novel implements Comparable<Novel> {
 
     private final String    title;
     private final String    authorName;
@@ -55,5 +55,16 @@ public class Novel {
      */
     public int getYearPublished() {
         return yearPublished;
+    }
+
+    /**
+     * Comparing two titles of novels to get alphabetical order.
+     * @param otherNovel other novel
+     * @return negative integer, zero, or positive integer
+     */
+    @Override
+    final public int compareTo(final Novel otherNovel) {
+
+        return this.title.compareToIgnoreCase(otherNovel.title);
     }
 }
