@@ -219,7 +219,7 @@ public class BookStore {
      * Printing all books for the inputted decade (e.g. input: 2000, output: print all book tittles from 2000 to 2009).
      */
     public void printGroupByDecade(final int decade) {
-
+    //This should actually use SubSet() ?? TreeSet
         final StringBuilder builder;
         builder = new StringBuilder();
         boolean hasBooksInDecade = false;
