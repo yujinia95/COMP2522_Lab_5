@@ -3,6 +3,7 @@ package code;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
+import java.util.Map;
 
 /**
  * This class models book store's information.
@@ -32,30 +33,100 @@ import java.util.*;
 public class BookStore
 {
 
-    private static int WITHIN_DECADE = 9;
-    private static int PERCENTAGE_MULTIPLIER;
+    private static int WITHIN_DECADE         = 9;
+    private static int PERCENTAGE_MULTIPLIER = 100;
 
     private final String      nameOfBookStore;
     private final List<Novel> novels;
+
+    private final Map<String, Novel> bookMap;
 
     /**
      * Constructor.
      *
      * @param nameOfBookStore name of book store
+     *
      */
     public BookStore(final String nameOfBookStore) throws FileNotFoundException
     {
 
         this.nameOfBookStore = nameOfBookStore;
         this.novels          = new ArrayList<>();
+        this.bookMap         = new HashMap<>();
 
+        // Populating the ArrayList with the novel data and the HashMap with the novel titles as key, novel object as
+        // value
         booksInTheUniverse();
+
+        // Set and Iterator
+//        printNovelsWithIterator();
+
+        // Removes all Novels with titles containing "the" case INsensit
+        removeNovelsWithTitle();
+
+    }
+
+    /**
+     * Iterating through the set of novel titles and prints each corresponding novel.
+     */
+    private void printNovelsWithIterator()
+    {
+        final Set<String> allKeys;
+        allKeys = bookMap.keySet();
+
+        final Iterator<String> it;
+        it = allKeys.iterator();
+
+        System.out.println("=== Iterate Set===\n");
+
+        while(it.hasNext())
+        {
+            final String titles;
+            titles = it.next();
+            System.out.println(titles);
+        }
+    }
+
+    private void removeNovelsWithTitle()
+    {
+        final Set<String>       allKeys;
+        final Iterator<String>  it;
+
+        allKeys                 = bookMap.keySet();
+        it                      = allKeys.iterator();
+
+        System.out.println("\n=== Iterate the set of books without the book title 'the'===");
+
+        while(it.hasNext())
+        {
+            final String titles;
+            titles = it.next();
+            if(titles.toLowerCase().contains("the"))
+            {
+                it.remove();
+            }
+        }
+
+        final List<String> keyList;
+        keyList = new ArrayList<>(allKeys);
+
+        Collections.sort(keyList);
+        for(String title : keyList)
+        {
+
+            final Novel novel;
+            novel = bookMap.get(title);
+            System.out.println(novel.toString());
+        }
+
     }
 
     /**
      * Helper function for the BookStore constructor. Populates the novelReferences ArrayList<Novel>.
      * <p>
      * Scans the file until the last line. The while loop works on ONE LINE at a time. Each line is split via "|". The first index is the title, second the author, third the year published. Then the Novel object is created with those indices (in order). Finally, that Novel object is added to the novels ArrayList<Novel>.
+     * <p>
+     * Also adds map values to bookMap.
      *
      * @return an ArrayList<Novel> that represents all the Novels in the library.
      *
@@ -87,6 +158,7 @@ public class BookStore
 
             novel = new Novel(title, author, year);
             novels.add(novel);
+            bookMap.put(title, novel);
         }
     }
 
@@ -314,32 +386,59 @@ public class BookStore
         }
     }
 
-    // TODO:Implement
-
     /**
      * Returning the oldest book.
      */
-    public void getOldestBook()
+    public Novel getOldestBook()
     {
 
-        final StringBuilder builder;
-        builder = new StringBuilder();
+        Novel oldestNovelSoFar;
+        oldestNovelSoFar = novels.get(0);
+
+        if(novels != null)
+        {
+
+            for(final Novel novel : novels)
+            {
+
+                if(novel != null)
+                {
+                    if(novel.getYearPublished() < oldestNovelSoFar.getYearPublished())
+                    {
+                        oldestNovelSoFar = novel;
+                    }
+                }
+            }
+        }
+        return oldestNovelSoFar;
 
     }
-
-    // TODO:Implement
 
     /**
      * Returning a list of all books whose title is this length.
      *
      * @param titleLength book title length
      */
-    public void getBooksThisLength(final int titleLength)
+    public List<Novel> getBooksThisLength(final int titleLength)
     {
+        final List<Novel> bookWithThisLength;
 
-        final StringBuilder builder;
-        builder = new StringBuilder();
+        bookWithThisLength = new ArrayList<>();
 
+        if(novels != null)
+        {
+            for(final Novel novel : novels)
+            {
+                if(novel != null)
+                {
+                    if(novel.getTitle().length() == titleLength)
+                    {
+                        bookWithThisLength.add(novel);
+                    }
+                }
+            }
+        }
+        return bookWithThisLength;
     }
 
     /**
@@ -350,10 +449,73 @@ public class BookStore
     public static void main(final String[] args) throws FileNotFoundException
     {
 
-        final BookStore bookStore;
-        bookStore = new BookStore("Nariyal's Pandora Box");
+        final BookStore   bookStore;
+        final List<Novel> fifteenCharTitles;
 
-        // TODO:Implement
-        // Calls all the BookStore methods listed above
+        bookStore = new BookStore("Nariyal's poochie Box"); Novel oldest;
+
+//        //Testing implemented methods
+//        /**
+//         * Printing all titles.
+//         */
+//        System.out.println("\n===All Titles in UPPERCASE===");
+//        bookStore.printAllTitles();
+//
+//        /**
+//         *  Printing book titles containing 'the'.
+//         */
+//        System.out.println("===Book Titles Containing 'the'===");
+//        bookStore.printBookTitle("the");
+//
+//        /**
+//         *  Printing all titles in alphabetical Order.
+//         */
+//        System.out.println("===All Titles in Alphabetical Order===");
+//        bookStore.printTitlesInAlphaOrder();
+//
+//        /**
+//         *  Printing books from the 2000s
+//         */
+//        System.out.println("===Books from the 2000s===");
+//        bookStore.printGroupByDecade(2000);
+//
+//        /**
+//         * Printing the longest Book Title.
+//         */
+//        System.out.println("===Longest Book Title===");
+//        bookStore.getLongest();
+//
+//        /**
+//         * Printing if there is a book written in 1950?
+//         */
+//        System.out.println("\n===Is there a book written in 1950?===");
+//        System.out.println(bookStore.isThereABookWrittenIn(1950));
+//
+//        /**
+//         * Printing how many books contain 'heart'.
+//         */
+//        System.out.println("\nHow many books contain 'heart'?");
+//        bookStore.howManyBooksContain("heart");
+//
+//        /**
+//         * Printing percentage of books written between 1940 and 1950.
+//         */
+//        System.out.println("\n===Percentage of books written between 1940 and 1950===");
+//        bookStore.whichPercentWrittenBetween(1940, 1950);
+//
+//        /**
+//         *  Printing the oldest book.
+//         */
+//        System.out.println("\n===Oldest book===");
+//        oldest = bookStore.getOldestBook();
+//        System.out.println(oldest.getTitle() + " by " + oldest.getAuthorName() + oldest.getYearPublished());
+//
+//        /**
+//         * Printing books with titles 15 characters long.
+//         */
+//        System.out.println("\n===Books with titles 15 characters long===");
+//        fifteenCharTitles = bookStore.getBooksThisLength(15);
+//        fifteenCharTitles.forEach(novel -> System.out.println(novel.getTitle()));
+
     }
 }
