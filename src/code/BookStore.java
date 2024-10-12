@@ -33,6 +33,7 @@ public class BookStore
 {
 
     private static int WITHIN_DECADE = 9;
+    private static int PERCENTAGE_MULTIPLIER;
 
     private final String      nameOfBookStore;
     private final List<Novel> novels;
@@ -262,8 +263,8 @@ public class BookStore
         final StringBuilder builder;
         int                 counter;
 
-        builder             = new StringBuilder();
-        counter             = 0;
+        builder = new StringBuilder();
+        counter = 0;
 
         if(novels != null)
         {
@@ -290,15 +291,27 @@ public class BookStore
      */
     public void whichPercentWrittenBetween(final int first, final int last)
     {
+        double percentageOfBooks;
+        int    counter;
 
-        final StringBuilder builder;
-        builder = new StringBuilder();
+        counter = 0;
 
         if(novels != null)
         {
+            for(final Novel novel : novels)
+            {
+                if(novel != null)
+                {
+                    if(novel.getYearPublished() >= first && novel.getYearPublished() <= last)
+                    {
+                        counter++;
+                    }
+                }
+            }
+            percentageOfBooks = ((double) counter / novels.size()) * PERCENTAGE_MULTIPLIER;
 
+            System.out.println(String.format("%.1f", percentageOfBooks));
         }
-
     }
 
     // TODO:Implement
