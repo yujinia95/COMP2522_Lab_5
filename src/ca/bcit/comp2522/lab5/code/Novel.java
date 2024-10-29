@@ -1,4 +1,4 @@
-package code;
+package ca.bcit.comp2522.lab5.code;
 
 /**
  * This class models novel's information.
